@@ -15,11 +15,10 @@ class Artiste(models.Model):
 
 
 class Song(models.Model):
-    Artiste = models.ForeignKey(Artiste, on_delete = models.CASCADE)
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=50)
     date_released = models.DateField(default = datetime.today)
     likes = models.IntegerField()
-    artiste_id = models.IntegerField()
+    artiste_id = models.ForeignKey(Artiste, on_delete = models.CASCADE)
     song_img_url = models.CharField(max_length=2000, default='', blank=True)
 
     def __str__(self):
@@ -29,10 +28,9 @@ class Song(models.Model):
 
 
 
-class Lyrics(models.Model):
-    Song = models.ForeignKey(Song, on_delete = models.CASCADE)
-    content = models.CharField(max_length=400)
-    song_id = models.IntegerField()
+class Lyric(models.Model):
+    content = models.CharField(max_length=4000)
+    song_id = models.ForeignKey(Song, on_delete = models.CASCADE)
 
     def __str__(self):
         if self.song_id:
